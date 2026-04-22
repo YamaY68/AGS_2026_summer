@@ -7,6 +7,8 @@
 #include"../../Scene/SceneBase.h"
 #include"../../Scene/TitleScene.h"
 #include"../../Scene/GameScene.h"
+#include "../../Scene/MultiScene.h"
+#include "../../Scene/ConnectScene.h"
 
 #include"../../Manager/Generic/Loading.h"
 #include"../Resource/ResourceManager.h"
@@ -173,11 +175,13 @@ void SceneManager::ChangeScene(std::shared_ptr<SceneBase>_scene)
 		scenes_.back()->Release();
 		scenes_.back() = _scene;
 
-		// “Ç‚Ýž‚Ý(”ñ“¯Šú)
-		Loading::GetInstance()->StartAsyncLoad();
-		scenes_.back()->Load();
-		Loading::GetInstance()->EndAsyncLoad();
+	
 	}
+
+	// “Ç‚Ýž‚Ý(”ñ“¯Šú)
+	Loading::GetInstance()->StartAsyncLoad();
+	scenes_.back()->Load();
+	Loading::GetInstance()->EndAsyncLoad();
 
 }
 
@@ -190,6 +194,12 @@ void SceneManager::ChangeScene(SCENE_ID scene)
 		break;
 	case SCENE_ID::GAME:
 		ChangeScene(std::make_shared<GameScene>());
+		break;
+	case SCENE_ID::MULTI:
+		ChangeScene(std::make_shared<MultiScene>());
+		break;
+	case SCENE_ID::CONNECT:
+		ChangeScene(std::make_shared<ConnectScene>());
 		break;
 	default:
 		break;
@@ -258,6 +268,21 @@ void SceneManager::ChangeScene(SCENE_ID scene)
 		default:
 			break;
 		}
+	}
+
+	float SceneManager::GetTotalGameTime(void)
+	{
+		return totalGameTime_;
+	}
+
+	void SceneManager::SetTotalGameTime(float time)
+	{
+		totalGameTime_ = time;
+	}
+
+	void SceneManager::ForwardGameTime(void)
+	{
+		totalGameTime_ += GetDeltaTime();
 	}
 
 	Camera* SceneManager::GetCamera(void) const

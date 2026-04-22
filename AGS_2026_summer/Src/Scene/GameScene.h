@@ -12,11 +12,14 @@
 
 #include"../Manager/Generic/KeyManager.h"
 
+#include"../Object/Actor/Manager/ActorManager.h"
+#include"GameSelect/GameKind.h"
 class GameScene :
     public SceneBase
 {
 public:
     GameScene(void);
+	GameScene(GameInfo info);
     ~GameScene(void)override;
 
     void Load(void)override;
@@ -26,8 +29,6 @@ public:
     void Release(void)override;
 
 private:
-    std::vector<std::shared_ptr<ActorBase>>actors_;
-
     CollisionSystem collisionSystem_;
     ContactSystem contactSystem_;
     GameContactSystem gameContactSystem_;
@@ -35,8 +36,9 @@ private:
 
 
     MoveInputSystem moveInputSystem_;
-    
-    int EntityId = 0;
+
+    ActorManager actorManager_;
+	GameInfo gameInfo_;
 
 };
 

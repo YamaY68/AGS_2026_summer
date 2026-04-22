@@ -9,6 +9,14 @@ ColliderBox::ColliderBox(ColliderInfo& info,  VECTOR& halfSize, ActorBase* actor
 {
 }
 
+ColliderBox::ColliderBox(ColliderInfo& info, VECTOR& halfSize, ActorBase* actor, int debugColor)
+	:
+	ColliderBase(info, actor),
+	halfSize_(halfSize)
+{
+	debugColor_ = debugColor;
+}
+
 
 ColliderBox::~ColliderBox(void)
 {
@@ -32,9 +40,11 @@ VECTOR ColliderBox::Local2World(const VECTOR& localPos) const
 
 VECTOR ColliderBox::World2Local(const VECTOR& worldPos) const
 {
+	// ワールド座標から中心座標を引いて、ローカル軸に投影する
 	VECTOR center = GetRotPos(colliderInfo_.localPos);
+	// ワールド座標から中心座標を引く
 	VECTOR dir = VSub(worldPos, center);
-
+	// ローカル軸に投影する
 	return VGet(
 		VDot(dir, GetAxisX()),
 		VDot(dir, GetAxisY()),
@@ -87,7 +97,6 @@ void ColliderBox::DrawDebug(int color)
 	VECTOR hx = VScale(axisX, halfSize_.x);
 	VECTOR hy = VScale(axisY, halfSize_.y);
 	VECTOR hz = VScale(axisZ, halfSize_.z);
-
 	// 頂点座標計算
 	VECTOR v[8]=
 	{
@@ -115,7 +124,10 @@ void ColliderBox::DrawDebug(int color)
 	{
 		DrawLine3D(v[edges[i][0]], v[edges[i][1]], color);
 	}
-
+	DrawCube3D({ center.x - halfSize_.x,center.y - halfSize_.y,center.z - halfSize_.x },
+		{ center.x + halfSize_.x,center.y + halfSize_.y,center.z + halfSize_.x },
+		color, color, true);
 	//中心点
 	DrawSphere3D(center, 2.0f, 8, color, color, false);
+
 }
