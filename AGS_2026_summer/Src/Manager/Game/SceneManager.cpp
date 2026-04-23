@@ -7,8 +7,6 @@
 #include"../../Scene/SceneBase.h"
 #include"../../Scene/TitleScene.h"
 #include"../../Scene/GameScene.h"
-#include "../../Scene/MultiScene.h"
-#include "../../Scene/ConnectScene.h"
 
 #include"../../Manager/Generic/Loading.h"
 #include"../Resource/ResourceManager.h"
@@ -194,12 +192,6 @@ void SceneManager::ChangeScene(SCENE_ID scene)
 		break;
 	case SCENE_ID::GAME:
 		ChangeScene(std::make_shared<GameScene>());
-		break;
-	case SCENE_ID::MULTI:
-		ChangeScene(std::make_shared<MultiScene>());
-		break;
-	case SCENE_ID::CONNECT:
-		ChangeScene(std::make_shared<ConnectScene>());
 		break;
 	default:
 		break;

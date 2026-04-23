@@ -7,8 +7,7 @@ enum class SCENE_ID
 	STAGE_SELECT,
 	GAME,
 	RESULT,
-	MULTI,
-	CONNECT,
+
 
 	MAX
 };

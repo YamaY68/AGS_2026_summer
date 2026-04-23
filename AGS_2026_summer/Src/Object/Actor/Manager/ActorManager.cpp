@@ -16,9 +16,7 @@
 
 
 #include"../../Actor/Factory/ActorFactory/ActorFactoryBase.h"
-#include"../../Actor/Factory/ActorFactory/FindingJ/Stage1Factory.h"
-#include"../../Actor/Factory/ActorFactory/FindingJ/Stage2Factory.h"
-#include"../../Actor/Factory/ActorFactory/FindingJ/Stage3Factory.h"
+
 
 ActorManager::ActorManager()
 {
@@ -205,17 +203,14 @@ void ActorManager::SetFactory(GameInfo info)
 		case FourPlayer::Game::FindingJ:
 			if (info.stageID == 0)
 			{
-				actorFactory_ = std::make_unique<Stage1Factory>();
 				break;
 			}
 			else if (info.stageID == 1)
 			{
-				actorFactory_ = std::make_unique<Stage2Factory>();
 				break;
 			}
 			else if (info.stageID == 2)
 			{
-				actorFactory_ = std::make_unique<Stage3Factory>();
 				break;
 			}
 			break;
